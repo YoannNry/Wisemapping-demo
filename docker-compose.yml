@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  wisemapping:
+    image: wisemapping/wisemapping:latest
+    container_name: wisemapping_app
+    ports:
+      - "8080:8080"
+    environment:
+      - DB_URL=jdbc:postgresql://db:5432/wisemapping
+      - DB_USER=redteam
+      - DB_PASSWORD=redteam666&
+    depends_on:
+      - db
+
+  db:
+    image: postgres:13
+    container_name: wisemapping_db
+    environment:
+      POSTGRES_USER: redteam
+      POSTGRES_PASSWORD: redteam666&
+      POSTGRES_DB: wisemapping
+    volumes:
+      - db_data:/var/lib/postgresql/data
+
+volumes:
+  db_data:
